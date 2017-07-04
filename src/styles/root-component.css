@@ -1,0 +1,12 @@
+.root {
+  padding: 3rem;
+  font-size: 2rem;
+  background: color(blue a(-60%) l(-20%));
+  color: #eee;
+  text-align: center;
+}
+
+.button {
+  font-size: 2rem;
+  padding: 1rem 2rem;
+}

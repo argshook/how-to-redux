@@ -1,0 +1,11 @@
+*, *:before, *:after { box-sizing: border-box; }
+
+body {
+  background: #3b3137;
+  font-size: 14px;
+}
+
+:global #root {
+  margin: 2rem auto;
+  max-width: 900px;
+}
