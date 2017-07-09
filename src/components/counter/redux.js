@@ -1,10 +1,12 @@
-import { createMessage } from 'utils';
+import { createMessage, createMessagesReducer } from 'utils';
 
 export const NAME = 'counter';
 
 export const model = {
   count: 0
 };
+
+export const reducer = createMessagesReducer(NAME)(model);
 
 const message = createMessage(NAME);
 
