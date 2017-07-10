@@ -4,17 +4,18 @@ this folder contains simple usage of redux. There are no magic functions
 or difficult concepts. This is what you would find in other redux
 tutorials as a starting point.
 
-
 ### `index.js`
 
-an entry point of your component. since we're talking redux here, this
-file `connect`s redux store to react component and passes a slice of it
-through props. if you dont need redux, have your react component right
-here.
+entry point of your component. since we're talking redux here, this
+file `connect()`s redux store to react component and passes a slice of it
+through props.
+
+if you dont need redux, then have your component view right here in
+`index.js`.
 
 ### `counter-simple.js`
 
-here i keep only the view part, exporting only a single function - a
+here i keep only the view part, exporting a single function - a
 react component.
 
 ### `redux.js`
@@ -22,9 +23,12 @@ react component.
 this contains things related to redux. file could also be named `logic.js` or
 whatever floats your boat.
 
-there are **five** parts in this file. for me they are like a starting point
-for any react component which is to be connected to redux. Here they
-are:
+there are at least **six** main things to maintain, listed below. (in
+other examples with helper functions the number is only two: model
+and actions).
+
+for me they are like a starting point for any react component which is
+to be connected to redux. Here they are:
 
 1. `NAME` is like a unique identifier for your component. Its used in
    action types, selectors (more on them in other examples) as well as a

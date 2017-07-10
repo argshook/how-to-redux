@@ -5,9 +5,7 @@ import styles from '../styles.css';
 
 const Counter = ({ count, increase, decrease }) =>
   <div className={styles.root}>
-    <h2>
-      {count}
-    </h2>
+    {count}
 
     <button className={styles.button} onClick={increase}>+</button>
     <button className={styles.button} onClick={decrease}>-</button>

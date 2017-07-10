@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { message, selectCount } from './redux';
-import CounterMessages from './counter-messages';
+import CounterMessages from '../counter-simple/counter-simple';
 
 const mapStateToProps = state => ({
   count: selectCount(state)
