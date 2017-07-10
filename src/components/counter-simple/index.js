@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 
-import { increase, decrease } from './redux';
+import { selectCount, increase, decrease } from './redux';
 import CounterSimple from './counter-simple';
 
 const mapStateToProps = state => ({
-  count: state.count
+  count: selectCount(state)
 });
 
 const mapDispatchToProps = dispatch => ({

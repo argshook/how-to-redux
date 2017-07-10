@@ -11,7 +11,7 @@ export const DECREASE = `${NAME}/DECREASE`;
 // actions
 export const increase = ({ type: INCREASE });
 export const decrease = ({ type: DECREASE });
-// you could also write as a function though not really necessary in this case:
+// you could also write as a functions though not really necessary in this case:
 // export const increase = () => ({ type: INCREASE });
 
 export const reducer = (state = MODEL, action) => {
@@ -26,3 +26,5 @@ export const reducer = (state = MODEL, action) => {
       return state;
   }
 };
+
+export const selectCount = state => state[NAME].count;

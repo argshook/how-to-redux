@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.css';
+import styles from '../styles.css';
 
-const Counter = ({ count, increase, decrease }) =>
+const CounterMessages = ({ count, increase, decrease }) =>
   <div className={styles.root}>
     <h2>
       {count}
@@ -13,10 +13,10 @@ const Counter = ({ count, increase, decrease }) =>
     <button className={styles.button} onClick={decrease}>-</button>
   </div>;
 
-Counter.propTypes = {
+CounterMessages.propTypes = {
   count: PropTypes.number.isRequired,
   increase: PropTypes.func.isRequired,
   decrease: PropTypes.func.isRequired
 };
 
-export default Counter;
+export default CounterMessages;

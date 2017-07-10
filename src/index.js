@@ -4,13 +4,13 @@ import { Provider } from 'react-redux';
 
 import './styles/main.css';
 import store from './redux-store';
-import Counter from './components/counter';
+import Counters from './components/counters';
 
 ReactDom.render(
   React.createElement(
     Provider,
     { store },
-    React.createElement(Counter)
+    React.createElement(Counters)
   ),
   document.getElementById('root')
 );

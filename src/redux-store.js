@@ -1,5 +1,13 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import { reducer } from './components/counter/redux';
+import * as CounterSimple from './components/counter-simple/redux';
+import { reducer as CounterMessages } from './components/counter-messages/redux';
 
-export default createStore(reducer);
+export default createStore(
+  combineReducers({
+    [CounterSimple.NAME]: CounterSimple.reducer,
+    ...CounterMessages
+  }),
+  {},
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
