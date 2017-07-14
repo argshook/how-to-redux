@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { selectCount, increase, decrease } from './redux';
-import CounterSimple from './counter-simple';
+import View from './view';
 
 const mapStateToProps = state => ({
   count: selectCount(state)
@@ -12,4 +12,4 @@ const mapDispatchToProps = dispatch => ({
   decrease: () => dispatch(decrease)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CounterSimple);
+export default connect(mapStateToProps, mapDispatchToProps)(View);

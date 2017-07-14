@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { selectors, prepareHeadlines, getNext } from './redux';
-import ManyHackers from './many-hackers';
+import View from './view';
 
 const mapStateToProps = state => ({
   isLoading: selectors.isLoading(state),
@@ -20,7 +20,7 @@ class Wrapped extends Component {
   }
 
   render() {
-    return ManyHackers(this.props);
+    return View(this.props);
   }
 }
 

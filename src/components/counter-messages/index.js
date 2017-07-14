@@ -1,21 +1,15 @@
 import { connect } from 'react-redux';
 
-import { message, selectCount } from './redux';
-import CounterMessages from '../counter-simple/counter-simple';
+import { increase, decrease, selectCount } from './redux';
+import View from '../counter-simple/view';
 
 const mapStateToProps = state => ({
   count: selectCount(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  increase: () =>
-    dispatch(message(state =>
-      ({ ...state, count: state.count + 1 })
-    )),
-
-  decrease: () =>
-    dispatch(message(state =>
-      ({ ...state, count: state.count - 1 })))
+  increase: () => dispatch(increase),
+  decrease: () => dispatch(decrease)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CounterMessages);
+export default connect(mapStateToProps, mapDispatchToProps)(View);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { prepareHeadline, selectors } from './redux';
-import HackerNewsHeadline from './hacker-news-headline';
+import View from './view';
 
 const mapStateToProps = state => ({
   isLoading: selectors.isLoading(state),
@@ -22,7 +22,7 @@ class Wrapped extends Component {
   render() {
     return this.props.isLoading ?
       <div>Loading...</div> :
-      HackerNewsHeadline(this.props);
+      View(this.props);
   }
 }
 

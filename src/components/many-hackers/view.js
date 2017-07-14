@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import HackerNewsHeadline from '../hacker-news-headline/hacker-news-headline';
+import HackerNewsHeadline from '../hacker-news-headline/view';
 import styles from './styles.css';
 
 const ManyHackers = ({ isLoading, headlines, loadMore }) =>
