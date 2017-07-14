@@ -12,4 +12,7 @@ export const reducer = ({
 
 export const message = createMessage(NAME);
 
+export const increase = message(state => ({ ...state, count: state.count + 1 }));
+export const decrease = message(state => ({ ...state, count: state.count - 1 }));
+
 export const selectCount = state => state[NAME].count;

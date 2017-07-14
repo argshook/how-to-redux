@@ -2,8 +2,6 @@ import { createSelectors, createMessage, createMessagesReducer } from 'utils';
 
 export const NAME = 'hacker-news-headline';
 
-export const message = createMessage(NAME);
-
 export const MODEL = {
   isLoading: true,
   title: '',
@@ -14,10 +12,12 @@ export const reducer = ({
   [NAME]: createMessagesReducer(NAME)(MODEL)
 });
 
-export const selectors = createSelectors(NAME, MODEL);
+export const message = createMessage(NAME);
+export const selectors = createSelectors(NAME)(MODEL);
 
 const API_ROOT = 'https://hacker-news.firebaseio.com/v0/';
 
+// helpers
 const extract = key => object => object[key];
 const head = ([ head ]) => head;
 
@@ -29,13 +29,10 @@ export const getTopStoriesIds = get => () =>
   get(`${API_ROOT}topstories.json`)
     .then(extract('data'));
 
-const timeout = ms => result => new Promise(resolve => setTimeout(() => resolve(result), ms));
-
 export const prepareHeadline = (dispatch, getState, { get }) =>
   getTopStoriesIds(get)()
     .then(head)
     .then(getItemById(get))
-    .then(timeout(2000))
     .then(({ title, url }) =>
       dispatch(message(state => ({ ...state, title, url, isLoading: false })))
     )

@@ -1,5 +1,4 @@
-const message = stateName => message =>
-  ({ type: 'MESSAGE', stateName, message });
+import MESSAGE_TYPE from './message-type';
 
-export default stateName =>
-  message(stateName);
+export default stateName => message =>
+  ({ type: MESSAGE_TYPE, stateName, message });

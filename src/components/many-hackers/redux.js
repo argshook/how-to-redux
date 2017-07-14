@@ -12,7 +12,7 @@ export const MODEL = {
 
 export const message = createMessage(NAME);
 export const selectors = {
-  ...createSelectors(NAME, MODEL),
+  ...createSelectors(NAME)(MODEL),
   nextId: state => new Promise((resolve, reject) => {
     const next = state[NAME].ids[0];
     return next ? resolve(next) : reject();
