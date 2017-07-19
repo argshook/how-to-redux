@@ -13,7 +13,7 @@ through props.
 if you dont need redux, then have your component view right here in
 `index.js`.
 
-### `counter-simple.js`
+### `view.js`
 
 here i keep only the view part, exporting a single function - a
 react component.
@@ -32,7 +32,7 @@ to be connected to redux. Here they are:
 
 1. `NAME` is like a unique identifier for your component. Its used in
    action types, selectors (more on them in other examples) as well as a
-   name for reducer in `create-store.js`.
+   name for reducer in `redux-store.js`.
 
 1. `MODEL` is an object that contains initial state. you can call it
    like that - `INITIAL_STATE` though i find `MODEL` simply shorter.
