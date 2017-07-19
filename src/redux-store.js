@@ -2,17 +2,17 @@ import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import axios from 'axios';
 
+import * as CounterMessages from './components/counter-messages/redux';
+import * as ManyHackers from './components/many-hackers/redux';
 import * as CounterSimple from './components/counter-simple/redux';
-import { reducer as CounterMessages } from './components/counter-messages/redux';
-import { reducer as HackerNewsHeadline } from './components/hacker-news-headline/redux';
-import { reducer as ManyHackers } from './components/many-hackers/redux';
+import * as HackerNewsHeadline from './components/hacker-news-headline/redux';
 
 export default createStore(
   combineReducers({
+    [CounterMessages.NAME]: CounterMessages.reducer,
+    [ManyHackers.NAME]: ManyHackers.reducer,
     [CounterSimple.NAME]: CounterSimple.reducer,
-    ...CounterMessages,
-    ...HackerNewsHeadline,
-    ...ManyHackers
+    [HackerNewsHeadline.NAME]: HackerNewsHeadline.reducer
   }),
   compose(
     applyMiddleware(ReduxThunk.withExtraArgument({ get: axios.get })),

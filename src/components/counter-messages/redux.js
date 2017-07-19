@@ -2,14 +2,11 @@ import { createMessage, createMessagesReducer } from 'utils';
 
 export const NAME = 'counter-messages';
 
-export const model = {
+export const MODEL = {
   count: 0
 };
 
-export const reducer = ({
-  [NAME]: createMessagesReducer(NAME)(model)
-});
-
+export const reducer = createMessagesReducer(NAME)(MODEL);
 export const message = createMessage(NAME);
 
 export const increase = message(state => ({ ...state, count: state.count + 1 }));

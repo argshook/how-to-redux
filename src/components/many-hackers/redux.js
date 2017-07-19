@@ -1,6 +1,12 @@
-import { createMessage, createMessagesReducer, createSelectors } from 'utils';
+import {
+  createMessage,
+  createMessagesReducer,
+  createSelectors,
+  maybe,
+  tail
+} from 'utils';
 
-import { getTopStoriesIds, getItemById } from '../hacker-news-headline/redux';
+import { getTopStoriesIds, getItemById } from '../hacker-news-headline/api';
 
 export const NAME = 'many-hackers';
 
@@ -13,15 +19,10 @@ export const MODEL = {
 export const message = createMessage(NAME);
 export const selectors = {
   ...createSelectors(NAME)(MODEL),
-  nextId: state => new Promise((resolve, reject) => {
-    const next = state[NAME].ids[0];
-    return next ? resolve(next) : reject();
-  })
+  nextId: state => maybe(() => state[NAME].ids[0])
 };
 
-export const reducer = {
-  [NAME]: createMessagesReducer(NAME)(MODEL)
-};
+export const reducer = createMessagesReducer(NAME)(MODEL);
 
 export const prepareHeadlines = (dispatch, getState, { get }) =>
   getTopStoriesIds(get)()
@@ -30,17 +31,16 @@ export const prepareHeadlines = (dispatch, getState, { get }) =>
         getNext
       ].map(dispatch));
 
-const tail = ([ , ...tail ]) => tail;
 export const getNext = (dispatch, getState, { get }) =>
   Promise.resolve(dispatch(message(state => ({ ...state, isLoading: true }))))
     .then(() => selectors.nextId(getState()))
     .then(getItemById(get))
-    .then(item => {
+    .then(item =>
       dispatch(message(state =>
         ({ ...state,
           headlines: state.headlines.concat(item),
           ids: tail(state.ids),
           isLoading: false
         }))
-      )
-    });
+      ))
+    .catch(e => console.log('Something bad happened :(', e));
