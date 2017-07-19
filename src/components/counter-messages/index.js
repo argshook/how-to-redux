@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { increase, decrease, selectCount } from './redux';
+import { message, increase, decrease, selectCount } from './redux';
 import View from '../counter-simple/view';
 
 const mapStateToProps = state => ({
@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  increase: () => dispatch(increase),
-  decrease: () => dispatch(decrease)
+  increase: () => dispatch(message(increase)),
+  decrease: () => dispatch(message(decrease))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

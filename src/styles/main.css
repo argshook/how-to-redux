@@ -3,6 +3,7 @@
 body {
   background: #666;
   font-size: 14px;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 :global #root {

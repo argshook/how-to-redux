@@ -26,17 +26,17 @@ export const selectors = {
 };
 
 export const setIsLoading = isLoading =>
-  message(state => ({
+  state => ({
     ...state,
     isLoading
-  }));
+  });
 
 export const addNextItem = item =>
-  message(state => ({
+  state => ({
     ...state,
     headlines: state.headlines.concat(item),
     ids: tail(state.ids)
-  }));
+  });
 
 export const prepareHeadlines = (dispatch, getState, { get }) =>
   getTopStoriesIds(get)()
@@ -46,9 +46,13 @@ export const prepareHeadlines = (dispatch, getState, { get }) =>
       ].map(dispatch));
 
 export const getNext = (dispatch, getState, { get }) =>
-  Promise.resolve(dispatch(setIsLoading(true)))
+  Promise.resolve(dispatch(message(setIsLoading(true))))
     .then(() => selectors.nextId(getState()))
+    .catch(() => {
+      dispatch(prepareHeadlines);
+      return Promise.reject('retry');
+    })
     .then(getItemById(get))
-    .then(item => dispatch(addNextItem(item)))
-    .catch(e => console.log('Something bad happened :(', e))
-    .then(() => dispatch(setIsLoading(false)));
+    .then(item => dispatch(message(addNextItem(item))))
+    .catch(e => e !== 'retry' && console.log(e))
+    .then(() => dispatch(message(setIsLoading(false))));

@@ -1,27 +1,15 @@
-import React from 'react';
+import { connect } from 'react-redux';
 
-import CounterSimple from '../counter-simple';
-import CounterMessages from '../counter-messages';
-import HackerNewsHeadline from '../hacker-news-headline';
-import ManyHackers from '../many-hackers';
+import { message, selectors, switchTab } from './redux';
 
-const Root = () =>
-  <div>
-    <h2>Simple Counter</h2>
-    <CounterSimple/>
-    <hr />
+import Root from './view';
 
-    <h2>Counter with messages</h2>
-    <CounterMessages/>
-    <hr />
+const mapStateToProps = state => ({
+  activeTab: selectors.activeTab(state)
+});
 
-    <h2>async actions with messages example</h2>
-    <p>Hacker news top story loader</p>
-    <HackerNewsHeadline/>
-    <hr />
+const mapDispatchToProps = dispatch => ({
+  switchTab: id => () => dispatch(message(switchTab(id)))
+});
 
-    <h2>list of hacker news</h2>
-    <ManyHackers/>
-  </div>;
-
-export default Root;
+export default connect(mapStateToProps, mapDispatchToProps)(Root);
