@@ -39,11 +39,15 @@ export const addNextItem = item =>
   });
 
 export const prepareHeadlines = (dispatch, getState, { get }) =>
-  getTopStoriesIds(get)()
-    .then(ids =>
-      [ message(state => ({ ...state, ids })),
-        getNext
-      ].map(dispatch));
+  Promise.resolve(selectors.nextId(getState()))
+    .catch(() =>
+      getTopStoriesIds(get)()
+        .then(ids =>
+          [ message(state => ({ ...state, ids })),
+            getNext
+          ].map(dispatch))
+    );
+
 
 export const getNext = (dispatch, getState, { get }) =>
   Promise.resolve(dispatch(message(setIsLoading(true))))
