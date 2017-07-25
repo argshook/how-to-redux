@@ -1,4 +1,4 @@
-import { createMessage, createMessagesReducer } from 'utils';
+import { createMessage, createMessagesReducer } from 'redux-msg';
 
 export const NAME = 'counter-messages';
 

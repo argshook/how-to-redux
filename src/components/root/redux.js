@@ -1,4 +1,4 @@
-import { createMessagesReducer, createMessage, createSelectors } from 'utils';
+import { createMessagesReducer, createMessage, createSelectors } from 'redux-msg';
 
 export const NAME = 'root';
 

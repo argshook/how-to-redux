@@ -1,4 +1,4 @@
-import { createSelectors, createMessage, createMessagesReducer } from 'utils';
+import { createSelectors, createMessage, createMessagesReducer } from 'redux-msg';
 
 import { getItemById, getTopStoriesIds } from './api';
 

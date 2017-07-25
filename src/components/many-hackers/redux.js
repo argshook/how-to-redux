@@ -2,10 +2,10 @@
 import {
   createMessage,
   createMessagesReducer,
-  createSelectors,
-  maybe,
-  tail
-} from 'utils';
+  createSelectors
+} from 'redux-msg';
+
+import { maybe, tail } from 'utils';
 
 import { getTopStoriesIds, getItemById } from '../hacker-news-headline/api';
 

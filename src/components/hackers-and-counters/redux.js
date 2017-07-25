@@ -1,4 +1,4 @@
-import { createMessage, createMessagesReducer, createSelectors } from 'utils';
+import { createMessage, createMessagesReducer, createSelectors } from 'redux-msg';
 
 import { MODEL as counterModel } from '../counter-simple/redux';
 
