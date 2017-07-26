@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  increase: () => dispatch(message(increase)),
-  decrease: () => dispatch(message(decrease))
+  increase: () => dispatch(message(increase, 'increase')),
+  decrease: () => dispatch(message(decrease, 'decrease'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);
