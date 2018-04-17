@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { message, selectors, switchTab } from './redux';
+import { message, selectors, switchTab } from './logic';
 
 import Root from './view';
 

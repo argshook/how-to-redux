@@ -18,10 +18,9 @@ if you dont need redux, then have your component view right here in
 here i keep only the view part, exporting a single function - a
 react component.
 
-### `redux.js`
+### `logic.js`
 
-this contains things related to redux. file could also be named `logic.js` or
-whatever floats your boat.
+this contains business logic a.k.a redux stuff (actions, reducer etc.)
 
 there are at least **six** main things to maintain, listed below. (in
 other examples with helper functions the number is only two: model

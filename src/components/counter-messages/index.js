@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { message, increase, decrease, selectCount } from './redux';
+import { message, increase, decrease, selectCount } from './logic';
 import View from '../counter-simple/view';
 
 const mapStateToProps = state => ({

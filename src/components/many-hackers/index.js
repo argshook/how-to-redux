@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { selectors, prepareHeadlines, getNext } from './redux';
+import { selectors, prepareHeadlines, getNext } from './logic';
 import View from './view';
 
 const mapStateToProps = state => ({

@@ -5,10 +5,10 @@ import {
   addCounter,
   counterAction,
   removeCounter
-} from './redux';
+} from './logic';
 
-import { getNext, selectors as manyHackersSelectors } from '../many-hackers/redux';
-import { increase, decrease } from '../counter-messages/redux';
+import { getNext, selectors as manyHackersSelectors } from '../many-hackers/logic';
+import { increase, decrease } from '../counter-messages/logic';
 
 import HackersAndCounters from './view';
 

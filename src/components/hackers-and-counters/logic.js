@@ -1,6 +1,6 @@
 import { createMessage, createMessagesReducer, createSelectors } from 'redux-msg';
 
-import { MODEL as counterModel } from '../counter-simple/redux';
+import { MODEL as counterModel } from '../counter-simple/logic';
 
 export const NAME = 'hackers-and-counters';
 
