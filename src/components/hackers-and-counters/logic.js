@@ -1,41 +1,79 @@
 import { createMessage, createMessagesReducer, createSelectors } from 'redux-msg';
 
-import { MODEL as counterModel } from '../counter-simple/logic';
-
+import * as hackerNewsApi from '../hacker-news-headline/api';
 export const NAME = 'hackers-and-counters';
 
-export const COUNTER = 'counter';
-
 export const MODEL = {
-  counters: []
+  components: {},
+  headlineIds: []
 };
 
 export const message = createMessage(NAME);
 export const reducer = createMessagesReducer(NAME)(MODEL);
-export const selectors = {
-  ...createSelectors(NAME)(MODEL)
-};
+export const selectors = createSelectors(NAME)(MODEL);
 
-const newCounter = id => ({
-  id,
-  type: COUNTER,
-  model: counterModel
+export const addComponent = type => model => message(state => {
+  const id = +new Date;
+
+  return {
+    ...state,
+    components: {
+      ...state.components,
+      [id]: { type, model }
+    }
+  };
 });
 
-export const addCounter = () => message(state => ({
+export const removeComponent = id => message(state => {
+  const { [id]: deletedKey, ...components } = state.components;
+
+  return {
+    ...state,
+    components
+  };
+});
+
+export const componentAction = action => id => message(state => ({
   ...state,
-  counters: state.counters.concat(newCounter(+new Date))
+  components: {
+    ...state.components,
+    [id]: {
+      ...state.components[id],
+      model: action(state.components[id].model)
+    }
+  }
 }));
 
-export const removeCounter = id => message(state => ({
-  ...state,
-  counters: state.counters.filter(counter => counter.id !== id)
-}));
+export const loadHeadline = componentId => (dispatch, getState, {get}) =>
+  new Promise(resolve => {
+    const [ firstId, ...headlineIds ] = selectors.headlineIds(getState());
 
-export const counterAction = action => id => message(state => ({
-  ...state,
-  counters: state.counters.map(counter => counter.id === id ?
-    { ...counter, model: action(counter.model) } :
-    counter
-  )
-}));
+    if (firstId) {
+      dispatch(message(state => ({ ...state, headlineIds })));
+      resolve(firstId);
+    } else {
+      hackerNewsApi.getTopStoriesIds(get)()
+        .then(ids => {
+          const [ firstId, ...headlineIds ] = ids;
+          dispatch(message(state => ({ ...state, headlineIds })));
+          resolve(firstId);
+        });
+    }
+  })
+    .then(headlineId => {
+      hackerNewsApi.getItemById(get)(headlineId)
+        .then(model =>
+          dispatch(message(state =>
+            ({
+              ...state,
+              components: {
+                ...state.components,
+                [componentId]: {
+                  ...state.components[componentId],
+                  model
+                }
+              }
+            })
+          ))
+        );
+    });

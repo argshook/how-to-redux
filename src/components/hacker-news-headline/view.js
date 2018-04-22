@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.css';
 
-const maxLength = n => str =>
-  str.length > n ?
-    str.substr(0, n / 2) + '...' + str.substr(str.length - n / 2 + 3, str.length) :
-    str;
+const maxLength = n => str => {
+  const len = str.length;
+
+  return len > n
+    ? str.substr(0, n / 2) + '...' + str.substr(len - n / 2 + 3, len)
+    : str;
+};
 
 const Link = ({ url }) =>
   <a target="_blank" href={url}>

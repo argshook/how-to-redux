@@ -1,3 +1,4 @@
+import head from '../../utils/head';
 import { createSelectors, createMessage, createMessagesReducer } from 'redux-msg';
 
 import { getItemById, getTopStoriesIds } from './api';
@@ -13,9 +14,6 @@ export const MODEL = {
 export const reducer = createMessagesReducer(NAME)(MODEL);
 export const message = createMessage(NAME);
 export const selectors = createSelectors(NAME)(MODEL);
-
-// helpers
-const head = ([ head ]) => head;
 
 export const prepareHeadline = (dispatch, getState, { get }) =>
   getTopStoriesIds(get)()

@@ -2,45 +2,61 @@ import React from 'react';
 
 import Counter from '../counter-simple/view';
 import HackerNewsHeadline from '../hacker-news-headline/view';
+import Lifecycle from '../../utils/lifecycle';
 
 import styles from './styles.css';
 
+import {
+  NAME as counterName,
+  MODEL as counterModel
+} from '../counter-messages/logic';
+
+import {
+  NAME as hackerName,
+  MODEL as hackersModel
+} from '../hacker-news-headline/logic';
+
+const controls = addComponent =>
+  <div className={styles.controls}>
+    <button onClick={addComponent(counterName)(counterModel)}>
+      Add counter
+    </button>
+
+    <button onClick={addComponent(hackerName)(hackersModel)}>
+      Add headline
+    </button>
+  </div>;
+
 export default ({
-  counters,
-  headlines,
-  addCounter,
-  removeCounter,
-  addHeadline,
+  components,
+  addComponent,
+  removeComponent,
   increaseCounter,
-  decreaseCounter
+  decreaseCounter,
+  loadHeadline
 }) =>
   <div className={styles.root}>
-    <div>
-      { counters.map((c, id) =>
-        <div key={id}>
+    {controls(addComponent)}
+
+    { Object.entries(components).map(([id, { type, model }]) =>
+      <div key={id}>
+        { type === counterName &&
           <Counter {...{
-            count: c.model.count,
-            increase: increaseCounter(c.id),
-            decrease: decreaseCounter(c.id)
+            ...model,
+            increase: increaseCounter(id),
+            decrease: decreaseCounter(id)
           }} />
-          <button onClick={removeCounter(c.id)}>Remove</button>
-        </div>
-      ) }
-    </div>
+        }
 
-    <div>
-      { headlines.map(h =>
-        <div key={h.id}>
-          <HackerNewsHeadline {...{
-            title: h.title,
-            url: h.url
-          }} />
-        </div>
-      ) }
-    </div>
+        { type === hackerName &&
+          <Lifecycle onMount={loadHeadline(id)}>
+            <HackerNewsHeadline {...model}/>
+          </Lifecycle>
+        }
 
-    <div className={styles.controls}>
-      <button onClick={addCounter}>Add counter</button>
-      <button onClick={addHeadline}>Add headline</button>
-    </div>
+        <button onClick={removeComponent(id)}>Remove</button>
+      </div>
+    ) }
+
+    {controls(addComponent)}
   </div>;

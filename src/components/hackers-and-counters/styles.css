@@ -3,3 +3,9 @@
   grid-template-columns: 50% 50%;
   grid-gap: 10px;
 }
+
+.controls {
+  display:flex;
+  justify-content: center;
+  grid-column: span 2;
+}

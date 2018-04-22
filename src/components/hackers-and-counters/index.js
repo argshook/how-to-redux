@@ -2,27 +2,26 @@ import { connect } from 'react-redux';
 
 import {
   selectors,
-  addCounter,
-  counterAction,
-  removeCounter
+  addComponent,
+  componentAction,
+  removeComponent,
+  loadHeadline
 } from './logic';
 
-import { getNext, selectors as manyHackersSelectors } from '../many-hackers/logic';
 import { increase, decrease } from '../counter-messages/logic';
 
-import HackersAndCounters from './view';
+import view from './view';
 
 const mapStateToProps = state => ({
-  counters: selectors.counters(state),
-  headlines: manyHackersSelectors.headlines(state)
+  components: selectors.components(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  addCounter: () => dispatch(addCounter()),
-  increaseCounter: id => () => dispatch(counterAction(increase)(id)),
-  decreaseCounter: id => () => dispatch(counterAction(decrease)(id)),
-  removeCounter: id => () => dispatch(removeCounter(id)),
-  addHeadline: () => dispatch(getNext)
+  increaseCounter: id => () => dispatch(componentAction(increase)(id)),
+  decreaseCounter: id => () => dispatch(componentAction(decrease)(id)),
+  addComponent: type => model => () => dispatch(addComponent(type)(model)),
+  removeComponent: id => () => dispatch(removeComponent(id)),
+  loadHeadline: id => () => dispatch(loadHeadline(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HackersAndCounters);
+export default connect(mapStateToProps, mapDispatchToProps)(view);

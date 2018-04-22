@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Lifecycle from '../../utils/lifecycle';
 import { prepareHeadline, selectors } from './logic';
-import View from './view';
+import view from './view';
 
 const mapStateToProps = state => ({
   isLoading: selectors.isLoading(state),
@@ -14,16 +15,12 @@ const mapDispatchToProps = dispatch => ({
   onLoad: () => dispatch(prepareHeadline)
 });
 
-class Wrapped extends Component {
-  componentDidMount() {
-    this.props.onLoad();
-  }
-
-  render() {
-    return this.props.isLoading ?
-      <div>Loading...</div> :
-      View(this.props);
-  }
-}
+const Wrapped = props =>
+  <Lifecycle onMount={props.onLoad}>
+    { props.isLoading
+      ? <div>Loading...</div>
+      : view(props)
+    }
+  </Lifecycle>;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wrapped);
