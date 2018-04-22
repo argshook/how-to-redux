@@ -7,6 +7,7 @@ import CounterMessages from '../counter-messages';
 import HackerNewsHeadline from '../hacker-news-headline';
 import ManyHackers from '../many-hackers';
 import HackersAndCounters from '../hackers-and-counters';
+import JustInput from '../just-input';
 
 import styles from './styles.css';
 
@@ -31,6 +32,10 @@ const tabs = {
   HEADLINES_AND_COUNTERS: {
     title: 'Hacker news and Counters',
     component: <HackersAndCounters/>
+  },
+  JUST_INPUT: {
+    title: 'Just Simple Input',
+    component: <JustInput/>
   }
 };
 
@@ -42,7 +47,7 @@ export default ({ activeTab, switchTab }) =>
           key={tabId}
           onClick={switchTab(tabId)}
           className={tabId === activeTab ? styles.active : ''}
-          >
+        >
           {tabs[tabId].title}
         </button>
       ) }
