@@ -9,12 +9,12 @@ import styles from './styles.css';
 import {
   NAME as counterName,
   MODEL as counterModel
-} from '../counter-messages/logic';
+} from '../counter-messages/model';
 
 import {
   NAME as headlineName,
   MODEL as headlineModel
-} from '../hacker-news-headline/logic';
+} from '../hacker-news-headline/model';
 
 const controls = (isLoading, addComponent) =>
   <div className={styles.controls}>

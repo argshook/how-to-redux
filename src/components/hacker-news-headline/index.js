@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Lifecycle from '../../utils/lifecycle';
-import { prepareHeadline, selector } from './logic';
+import { prepareHeadline, selector } from './model';
 import view from './view';
 
 const mapStateToProps = state => ({

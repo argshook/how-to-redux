@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { selectCount, increase, decrease } from './logic';
+import { selectCount, increase, decrease } from './model';
 import View from './view';
 
 const mapStateToProps = state => ({

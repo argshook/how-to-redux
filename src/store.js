@@ -2,13 +2,13 @@ import { compose, createStore, combineReducers, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import axios from 'axios';
 
-import * as Root from './components/root/logic';
-import * as CounterMessages from './components/counter-messages/logic';
-import * as ManyHackers from './components/many-hackers/logic';
-import * as CounterSimple from './components/counter-simple/logic';
-import * as HackerNewsHeadline from './components/hacker-news-headline/logic';
-import * as HackersAndCounters from './components/hackers-and-counters/logic';
-import * as JustInput from './components/just-input/logic';
+import * as Root from './components/root/model';
+import * as CounterMessages from './components/counter-messages/model';
+import * as ManyHackers from './components/many-hackers/model';
+import * as CounterSimple from './components/counter-simple/model';
+import * as HackerNewsHeadline from './components/hacker-news-headline/model';
+import * as HackersAndCounters from './components/hackers-and-counters/model';
+import * as JustInput from './components/just-input/model';
 
 const reducers = {
   [Root.NAME]: Root.reducer,

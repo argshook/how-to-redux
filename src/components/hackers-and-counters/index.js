@@ -6,9 +6,9 @@ import {
   componentAction,
   removeComponent,
   loadHeadline
-} from './logic';
+} from './model';
 
-import { increase, decrease } from '../counter-messages/logic';
+import { increase, decrease } from '../counter-messages/model';
 
 import view from './view';
 

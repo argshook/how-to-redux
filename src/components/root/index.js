@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { message, selector } from './logic';
+import { message, selector } from './model';
 
 import Root from './view';
 

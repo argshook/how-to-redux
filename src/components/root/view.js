@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ACTIVE_TAB from './logic';
+import ACTIVE_TAB from './model';
 
 import CounterSimple from '../counter-simple';
 import CounterMessages from '../counter-messages';

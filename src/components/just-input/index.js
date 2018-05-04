@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import view from './view';
-import { select, changeValue } from './logic';
+import { select, changeValue } from './model';
 
 const mapStateToProps = state => ({
   value: select.value(state)
