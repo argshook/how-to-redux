@@ -1,16 +1,25 @@
-import { createMessage, createMessagesReducer, createSelectors } from 'redux-msg';
+/* global Promise */
+
+import {
+  createMessage,
+  createMessagesReducer,
+  createSelector
+} from 'redux-msg';
 
 import * as hackerNewsApi from '../hacker-news-headline/api';
 export const NAME = 'hackers-and-counters';
 
 export const MODEL = {
   components: {},
-  headlineIds: []
+  headlineIds: [],
+  isLoading: false
 };
 
 export const message = createMessage(NAME);
 export const reducer = createMessagesReducer(NAME)(MODEL);
-export const selectors = createSelectors(NAME)(MODEL);
+export const selector = createSelector(NAME)(MODEL);
+
+export const setIsLoading = isLoading => message({ isLoading });
 
 export const addComponent = type => model => message(state => {
   const id = +new Date;
@@ -46,16 +55,17 @@ export const componentAction = action => id => message(state => ({
 
 export const loadHeadline = componentId => (dispatch, getState, {get}) =>
   new Promise(resolve => {
-    const [ firstId, ...headlineIds ] = selectors.headlineIds(getState());
+    const [ firstId, ...headlineIds ] = selector.headlineIds(getState());
+    dispatch(setIsLoading(true));
 
     if (firstId) {
-      dispatch(message(state => ({ ...state, headlineIds })));
+      dispatch(message({ headlineIds }));
       resolve(firstId);
     } else {
       hackerNewsApi.getTopStoriesIds(get)()
         .then(ids => {
           const [ firstId, ...headlineIds ] = ids;
-          dispatch(message(state => ({ ...state, headlineIds })));
+          dispatch(message({ headlineIds }));
           resolve(firstId);
         });
     }
@@ -75,5 +85,6 @@ export const loadHeadline = componentId => (dispatch, getState, {get}) =>
               }
             })
           ))
-        );
+        )
+        .then(() => dispatch(setIsLoading(false)));
     });

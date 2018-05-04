@@ -2,7 +2,7 @@
 import {
   createMessage,
   createMessagesReducer,
-  createSelectors
+  createSelector
 } from 'redux-msg';
 
 import { maybe, tail } from 'utils';
@@ -20,16 +20,10 @@ export const MODEL = {
 export const message = createMessage(NAME);
 export const reducer = createMessagesReducer(NAME)(MODEL);
 
-export const selectors = {
-  ...createSelectors(NAME)(MODEL),
+export const selector = {
+  ...createSelector(NAME)(MODEL),
   nextId: state => maybe(() => state[NAME].ids[0])
 };
-
-export const setIsLoading = isLoading =>
-  state => ({
-    ...state,
-    isLoading
-  });
 
 export const addNextItem = item =>
   state => ({
@@ -39,19 +33,19 @@ export const addNextItem = item =>
   });
 
 export const prepareHeadlines = (dispatch, getState, { get }) =>
-  Promise.resolve(selectors.nextId(getState()))
+  Promise.resolve(selector.nextId(getState()))
     .catch(() =>
       getTopStoriesIds(get)()
         .then(ids =>
-          [ message(state => ({ ...state, ids })),
+          [ message({ ids }),
             getNext
           ].map(dispatch))
     );
 
 
 export const getNext = (dispatch, getState, { get }) =>
-  Promise.resolve(dispatch(message(setIsLoading(true))))
-    .then(() => selectors.nextId(getState()))
+  Promise.resolve(dispatch(message({isLoading: true})))
+    .then(() => selector.nextId(getState()))
     .catch(() => {
       dispatch(prepareHeadlines);
       return Promise.reject('retry');
@@ -59,4 +53,4 @@ export const getNext = (dispatch, getState, { get }) =>
     .then(getItemById(get))
     .then(item => dispatch(message(addNextItem(item))))
     .catch(e => e !== 'retry' && console.log(e))
-    .then(() => dispatch(message(setIsLoading(false))));
+    .then(() => dispatch(message({isLoading: false})));

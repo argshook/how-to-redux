@@ -12,19 +12,23 @@ import {
 } from '../counter-messages/logic';
 
 import {
-  NAME as hackerName,
-  MODEL as hackersModel
+  NAME as headlineName,
+  MODEL as headlineModel
 } from '../hacker-news-headline/logic';
 
-const controls = addComponent =>
+const controls = (isLoading, addComponent) =>
   <div className={styles.controls}>
-    <button onClick={addComponent(counterName)(counterModel)}>
-      Add counter
-    </button>
+    <button
+      disabled={isLoading}
+      onClick={addComponent(counterName)(counterModel)}
+      children="Add counter"
+    />
 
-    <button onClick={addComponent(hackerName)(hackersModel)}>
-      Add headline
-    </button>
+    <button
+      disabled={isLoading}
+      onClick={addComponent(headlineName)(headlineModel)}
+      children="Add headline"
+    />
   </div>;
 
 export default ({
@@ -33,10 +37,11 @@ export default ({
   removeComponent,
   increaseCounter,
   decreaseCounter,
-  loadHeadline
+  loadHeadline,
+  isLoading
 }) =>
   <div className={styles.root}>
-    {controls(addComponent)}
+    {controls(isLoading, addComponent)}
 
     { Object.entries(components).map(([id, { type, model }]) =>
       <div key={id}>
@@ -48,7 +53,7 @@ export default ({
           }} />
         }
 
-        { type === hackerName &&
+        { type === headlineName &&
           <Lifecycle onMount={loadHeadline(id)}>
             <HackerNewsHeadline {...model}/>
           </Lifecycle>
@@ -58,5 +63,5 @@ export default ({
       </div>
     ) }
 
-    {controls(addComponent)}
+    {controls(isLoading, addComponent)}
   </div>;

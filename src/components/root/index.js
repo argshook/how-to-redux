@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 
-import { message, selectors, switchTab } from './logic';
+import { message, selector } from './logic';
 
 import Root from './view';
 
 const mapStateToProps = state => ({
-  activeTab: selectors.activeTab(state)
+  activeTab: selector.activeTab(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  switchTab: id => () => dispatch(message(switchTab(id)))
+  switchTab: activeTab => () => dispatch(message({ activeTab }))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

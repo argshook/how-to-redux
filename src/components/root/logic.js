@@ -1,4 +1,4 @@
-import { createMessagesReducer, createMessage, createSelectors } from 'redux-msg';
+import { createMessagesReducer, createMessage, createSelector } from 'redux-msg';
 
 export const NAME = 'root';
 
@@ -16,7 +16,5 @@ export const MODEL = {
 };
 
 export const reducer = createMessagesReducer(NAME)(MODEL);
-export const selectors = createSelectors(NAME)(MODEL);
+export const selector = createSelector(NAME)(MODEL);
 export const message = createMessage(NAME);
-
-export const switchTab = activeTab => state => ({ ...state, activeTab });

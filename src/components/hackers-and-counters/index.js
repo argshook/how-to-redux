@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import {
-  selectors,
+  selector,
   addComponent,
   componentAction,
   removeComponent,
@@ -13,7 +13,8 @@ import { increase, decrease } from '../counter-messages/logic';
 import view from './view';
 
 const mapStateToProps = state => ({
-  components: selectors.components(state)
+  components: selector.components(state),
+  isLoading: selector.isLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({
