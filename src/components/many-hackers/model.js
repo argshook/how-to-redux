@@ -37,20 +37,20 @@ export const prepareHeadlines = (dispatch, getState, { get }) =>
     .catch(() =>
       getTopStoriesIds(get)()
         .then(ids =>
-          [ message({ ids }),
+          [ message({ ids }, 'prepareHeadlines'),
             getNext
           ].map(dispatch))
     );
 
 
 export const getNext = (dispatch, getState, { get }) =>
-  Promise.resolve(dispatch(message({isLoading: true})))
+  Promise.resolve(dispatch(message({isLoading: true}, 'isLoadingFalse')))
     .then(() => selector.nextId(getState()))
     .catch(() => {
       dispatch(prepareHeadlines);
       return Promise.reject('retry');
     })
     .then(getItemById(get))
-    .then(item => dispatch(message(addNextItem(item))))
+    .then(item => dispatch(message(addNextItem(item), 'addNextItem')))
     .catch(e => e !== 'retry' && console.log(e))
-    .then(() => dispatch(message({isLoading: false})));
+    .then(() => dispatch(message({isLoading: false}, 'isLoadingTrue')));

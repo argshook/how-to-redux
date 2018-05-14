@@ -19,7 +19,7 @@ export const prepareHeadline = (dispatch, getState, { get }) =>
   getTopStoriesIds(get)()
     .then(head)
     .then(getItemById(get))
-    .then(({ title, url }) =>
-      dispatch(message({ title, url, isLoading: false }))
+    .then(({ title, url = '' }) =>
+      dispatch(message({ title, url, isLoading: false }, 'prepareHeadline'))
     )
     .catch(e => console.warn('Error occured')); // eslint-disable-line

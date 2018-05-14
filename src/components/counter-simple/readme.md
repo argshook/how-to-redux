@@ -6,11 +6,11 @@ tutorials as a starting point.
 
 ### `index.js`
 
-entry point of your component. since we're talking redux here, this
-file `connect()`s redux store to react component and passes a slice of it
+entry point of your component. since we're talking redux here, this file
+`connect()`s react component with redux store and passes a slice of it
 through props.
 
-if you dont need redux, then have your component view right here in
+if you need stateless component, put component view right here in
 `index.js`.
 
 ### `view.js`

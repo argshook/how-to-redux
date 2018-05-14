@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  switchTab: activeTab => () => dispatch(message({ activeTab }))
+  switchTab: activeTab => () => dispatch(message({ activeTab }, 'switchTab'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Root);

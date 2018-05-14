@@ -22,14 +22,21 @@ const View = ({ title, url }) =>
       { title }
     </div>
 
-    <div className={styles.url}>
-      <Link url={url}/>
-    </div>
+    { url &&
+      <div className={styles.url}>
+        <Link url={url}/>
+      </div>
+    }
   </div>;
 
 View.propTypes = {
-  title: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired
+  title: PropTypes.string,
+  url: PropTypes.string
+};
+
+View.defaultProps = {
+  title: '',
+  url: ''
 };
 
 export default View;

@@ -19,7 +19,7 @@ export const message = createMessage(NAME);
 export const reducer = createMessagesReducer(NAME)(MODEL);
 export const selector = createSelector(NAME)(MODEL);
 
-export const setIsLoading = isLoading => message({ isLoading });
+export const setIsLoading = isLoading => message({ isLoading }, 'setIsLoading');
 
 export const addComponent = type => model => message(state => {
   const id = +new Date;
@@ -31,7 +31,7 @@ export const addComponent = type => model => message(state => {
       [id]: { type, model }
     }
   };
-});
+}, 'addComponent');
 
 export const removeComponent = id => message(state => {
   const { [id]: deletedKey, ...components } = state.components;
@@ -40,7 +40,7 @@ export const removeComponent = id => message(state => {
     ...state,
     components
   };
-});
+}, 'removeComponent');
 
 export const componentAction = action => id => message(state => ({
   ...state,
@@ -51,7 +51,7 @@ export const componentAction = action => id => message(state => ({
       model: action(state.components[id].model)
     }
   }
-}));
+}), 'componentAction');
 
 export const loadHeadline = componentId => (dispatch, getState, {get}) =>
   new Promise(resolve => {
@@ -59,13 +59,13 @@ export const loadHeadline = componentId => (dispatch, getState, {get}) =>
     dispatch(setIsLoading(true));
 
     if (firstId) {
-      dispatch(message({ headlineIds }));
+      dispatch(message({ headlineIds }, 'setHeadlineIds'));
       resolve(firstId);
     } else {
       hackerNewsApi.getTopStoriesIds(get)()
         .then(ids => {
           const [ firstId, ...headlineIds ] = ids;
-          dispatch(message({ headlineIds }));
+          dispatch(message({ headlineIds }, 'setHeadlineIds'));
           resolve(firstId);
         });
     }
@@ -84,7 +84,7 @@ export const loadHeadline = componentId => (dispatch, getState, {get}) =>
                 }
               }
             })
-          ))
+          ), 'saveLoadedHeadline')
         )
         .then(() => dispatch(setIsLoading(false)));
     });
