@@ -179,8 +179,12 @@ talk about helpful part.
 you should notice immediatelly that `model.js` is much less of redux
 than it would be by default. No action types, no action creators, no verbose reducers. Imagine
 you have an application composed of, say, 10 components each of which
-has 10 actions. If each action is 3 things, you end up with 300 things.
+has 10 actions. If each action is 3 things (action type, action creator, reducer), you end up with 300 things.
 wait what?
 
-with this approach you would end up 100, everything suddenly progresses
-linearly. This is lovely for maintenance.
+with this approach each action is only one thing (`message`) and so you would end up 100. everything suddenly progresses
+linearly which is lovely for maintenance.
+
+---
+
+for more advanced uses of `message` (async n stuff) look at `hacker-news-headline`, `hackers-and-counters` (composing models), `many-hackers`.
